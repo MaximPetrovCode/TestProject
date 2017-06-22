@@ -8,8 +8,7 @@ public class moveBall : MonoBehaviour {
     public Transform[] wayPointBall;
     public GameObject[] pointObj;
     public static int current = 0;
-    //public float speed = 0.3f;
-    public float speed;
+    public float speed = 0.3f;
     public static bool actionState = false;
 
 
@@ -26,7 +25,6 @@ public class moveBall : MonoBehaviour {
         for(int i = 0; i<DataController.size; i++)
         {
             wayPointBall[i] = pointObj[i].transform;
-            //wayPointBall[i].position += GameObject.Find("").transform.position;
             //print(wayPointBall[i].position);
         }
         
@@ -79,7 +77,6 @@ public class moveBall : MonoBehaviour {
             {
                 actionState = true;
                 //print(wayPointBall[current]);
-                print(speed);
                 //Vector3 dir = Vector3.MoveTowards(transform.position, wayPointBall[current].position, speed * Time.deltaTime);
                 transform.Translate((wayPointBall[current].position) - transform.position);
                 current = (current + 1);
