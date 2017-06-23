@@ -1,57 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
-public class moveBall : MonoBehaviour {
+public class makeMove : MonoBehaviour {
 
     public Transform[] wayPointBall;
     public GameObject[] pointObj;
-    public static int current = 0;
+    public int current = 0;
     public float speed = 0.3f;
-    public static bool actionState;
+    public bool actionState;
+    public GameObject player;
 
-
-
-	// Use this for initialization
-	void Start () {        
+    // Use this for initialization
+    void Start () {
+		  player = (GameObject)this.gameObject; 
 
 	}
-
-
-    
-    // Update is called once per frame
-    public void Update()
-    {
+	
+	// Update is called once per frame
+	void Update () {
         pointObj = GameObject.FindGameObjectsWithTag("Point" + transform.name).ToArray();
         wayPointBall = new Transform[pointObj.Length];
 
-        print(pointObj.Length);
-        print(wayPointBall.Length);
+        //print(pointObj.Length);
+        //print(wayPointBall.Length);
 
-        for (int i = 0; i < DataController.size; i++)
+        for (int i = 0; i < wayPointBall.Length; i++)
         {
             wayPointBall[i] = pointObj[i].transform;
-            //print(wayPointBall[i].position);
         }
 
         if (actionState == true)
         {
             stepForward();
         }
-    
     }
 
-    /*
-    public void changeSpeed(float newspeed)
-    {
-        
-        speed = newspeed;
-    }
-    */
 
     public void stepForward()
     {
+        Vector3 distance = wayPointBall[wayPointBall.Length - 1].position - wayPointBall[0].position;
+        print(distance);
         if (current == wayPointBall.Length)
         {
             //actionState = false;
@@ -60,7 +50,7 @@ public class moveBall : MonoBehaviour {
                 current = 0;
                 for (int k = 0; k < wayPointBall.Length; k++)
                 {
-                    wayPointBall[k].position = (wayPointBall[k].position);
+                    wayPointBall[k].position = (wayPointBall[k].position + distance);
                 }
 
                 actionState = false;
@@ -69,13 +59,14 @@ public class moveBall : MonoBehaviour {
         }
         else
         {
-            if (transform.position != wayPointBall[current].position && actionState == true)
+            if (player.transform.position != wayPointBall[current].position && actionState == true)
             {
                 actionState = true;
-                transform.Translate((wayPointBall[current].position) - transform.position);
+                player.transform.Translate((wayPointBall[current].position) - player.transform.position);
+                //player.transform.position += ((wayPointBall[current].position) - player.transform.position)*12*Time.deltaTime;
                 current = (current + 1);
             }
         }
     }
-    
+
 }

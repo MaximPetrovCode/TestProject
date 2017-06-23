@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class followToObj : MonoBehaviour {
 
-    public static string targetName = "Ball";
+    public static string targetName;
 
     public static string[] targets;
     public static int curentTarget = 0;

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class touchObject : MonoBehaviour
 {
 
-    public string targetName;
+    public string targetName = followToObj.targetName;
     public moveBall other;
 
     private void Start()
@@ -16,6 +16,7 @@ public class touchObject : MonoBehaviour
     
     void Update()
     {
+        targetName = followToObj.targetName;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit = new RaycastHit();
@@ -25,11 +26,16 @@ public class touchObject : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
 
-                if(hit.collider.name == targetName && moveBall.actionState==false)
+                if(hit.collider.name == targetName)
                 {
-                    print(hit.collider.name);
-                    moveBall.current = 0;
-                    moveBall.actionState = true;
+                    //print(hit.collider.name);
+                    makeMove tmpFind = GameObject.Find(targetName).GetComponent<makeMove>();
+                    if (tmpFind.player == GameObject.Find(targetName))
+                    {
+                        tmpFind.current = 0;
+                        tmpFind.actionState = true;
+                    }
+                                        
                 }                
             }
         }

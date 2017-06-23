@@ -29,11 +29,11 @@ public class DataController : MonoBehaviour {
         RootJson json = JsonUtility.FromJson<RootJson>(asset.text);
 
 
-        //print((float)json.x[2]);
         size = json.x.Length;
         GameObject[] points = new GameObject[size];
         GameObject tmpObj = new GameObject();
-        GameObject wayPointsBall = GameObject.Find("wayPointsBall");
+
+        GameObject wayPointsBall = new GameObject("wayPoints"+transform.name);
 
         for (int i = 0; i<json.x.Length; i++)
         {
@@ -42,7 +42,7 @@ public class DataController : MonoBehaviour {
 
             GameObject go = Instantiate(tmpObj, tempPos, Quaternion.identity) as GameObject;
             go.name = "Point" + i;
-            go.tag = "Point";
+            go.tag = "Point"+transform.name;
             points[i] = go;
             points[i].transform.parent = wayPointsBall.transform;
             //print(points[i].transform.position);
@@ -51,6 +51,12 @@ public class DataController : MonoBehaviour {
 
         GameObject.Destroy(tmpObj);
         
+    }
+
+
+    public static int getSize(Transform[] array)
+    {
+        return array.Length;
     }
 
     void Update()
