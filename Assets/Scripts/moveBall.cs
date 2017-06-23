@@ -9,7 +9,7 @@ public class moveBall : MonoBehaviour {
     public GameObject[] pointObj;
     public static int current = 0;
     public float speed = 0.3f;
-    public static bool actionState = false;
+    public static bool actionState;
 
 
 
@@ -45,16 +45,18 @@ public class moveBall : MonoBehaviour {
     
     }
 
-
+    /*
     public void changeSpeed(float newspeed)
     {
         
         speed = newspeed;
     }
+    */
 
     public void stepForward()
     {
         //print(actionState);
+        //Vector3 distance = wayPointBall[wayPointBall.Length].position - wayPointBall[0].position;
 
         if (current == wayPointBall.Length)
         {
@@ -64,7 +66,7 @@ public class moveBall : MonoBehaviour {
                 current = 0;
                 for (int k = 0; k < wayPointBall.Length; k++)
                 {
-                    wayPointBall[k].position = (wayPointBall[k].position + transform.position);
+                    wayPointBall[k].position = (wayPointBall[k].position);
                 }
 
                 actionState = false;
@@ -76,8 +78,6 @@ public class moveBall : MonoBehaviour {
             if (transform.position != wayPointBall[current].position && actionState == true)
             {
                 actionState = true;
-                //print(wayPointBall[current]);
-                //Vector3 dir = Vector3.MoveTowards(transform.position, wayPointBall[current].position, speed * Time.deltaTime);
                 transform.Translate((wayPointBall[current].position) - transform.position);
                 current = (current + 1);
 

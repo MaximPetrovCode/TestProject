@@ -27,6 +27,7 @@ public class touchObject : MonoBehaviour
 
                 if(hit.collider.name == targetName && moveBall.actionState==false)
                 {
+                    print(hit.collider.name);
                     moveBall.current = 0;
                     moveBall.actionState = true;
                 }                
